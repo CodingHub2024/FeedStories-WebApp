@@ -1,0 +1,44 @@
+<div>
+  <h3>Feed Stories</h3>
+  <div *ngIf="isStoriesLoading" class="spinner">
+    <p>Loading...</p>
+  </div>
+
+  <div *ngIf="!isStoriesLoading">
+    <input
+      id="search-title"
+      type="text"
+      placeholder="Search by title..."
+      [(ngModel)]="searchStoryQuery"
+      (input)="onStorySearch()"
+    />
+  </div>
+
+  <div *ngIf="!isStoriesLoading">
+    <ngx-datatable
+      class="material"
+      [rows]="filteredStories"
+      [columns]="[{ name: 'Title' }, { name: 'Url' }]"
+      [columnMode]="ColumnMode.force"
+      [headerHeight]="50"
+      [footerHeight]="50"
+      rowHeight="auto"
+      [externalPaging]="true"
+      [count]="page.totalElements"
+      [offset]="page.pageNumber"
+      [limit]="page.size"
+      (page)="loadStories($event)"
+    >
+      <ngx-datatable-column name="Title">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          {{ row.title }}
+        </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column name="Url">
+        <ng-template ngx-datatable-cell-template let-row="row">
+          <a [href]="row.url" target="_blank">{{ row.url }}</a>
+        </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+  </div>
+</div>
