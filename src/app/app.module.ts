@@ -1,7 +1,7 @@
 import { NgModule, ErrorHandler } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { HttpClientModule, HTTP_INTERCEPTORS} from "@angular/common/http";
-
+import { FormsModule } from "@angular/forms";
 import { AppComponent } from "./app.component";
 import { CommonModule } from "@angular/common";
 
@@ -16,10 +16,6 @@ import { GlobalErrorHandler } from "./core/error-handling/service/global-error-h
 import { HttpErrorInterceptor } from "./core/error-handling/service/http-error-interceptor";
 import { ErrorPageComponent } from "./core/error-handling/error-page-component";
 
-//NGRX
-import { StoreModule } from "@ngrx/store";
-import { rootReducer } from "./reducer";
-import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [AppComponent, FeedStoriesComponent, ErrorPageComponent],
@@ -29,7 +25,6 @@ import { FormsModule } from "@angular/forms";
     FormsModule,
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot(rootReducer),
     NgxDatatableModule.forRoot({
       messages: {
         emptyMessage: "No data to display", // Message to show when array is presented, but contains no values

@@ -4,7 +4,7 @@ import { Page } from "../model/page";
 import { ColumnMode } from '@swimlane/ngx-datatable';
 import { concatMap, switchMap, toArray } from "rxjs/operators";
 import { firstValueFrom, from, lastValueFrom } from "rxjs";
-import { StoryDetails, Story } from "../model/story";
+import { StoryDetails, Stories } from "../model/story";
 import { environment } from "../../../environments/environment";
 
 @Component({
@@ -17,7 +17,7 @@ export class FeedStoriesComponent {
   page = new Page(environment.feedStories.pageSize);
   stories = new Array<StoryDetails>();
   filteredStories = new Array<StoryDetails>();
-  storyIds: Story;
+  storiesData: Stories;
   ColumnMode = ColumnMode;
   isStoriesLoading: boolean;
   searchStoryQuery: string = "";
@@ -29,34 +29,30 @@ export class FeedStoriesComponent {
   }
 
   async loadStories(pageInfo) {
+    debugger;
     this.page.pageNumber = pageInfo.offset;
     this.isStoriesLoading = true;
 
-    this.feedStoriesService.getStoryIds(this.page.size, this.page.pageNumber)
+    this.feedStoriesService.getStories(this.page.size, this.page.pageNumber)
       .then(
-        async (storyIdData: Story) => {
-          this.storyIds = storyIdData;
+        (storiesData: Stories) => {
 
-          const $storyDetailsObservables = from(this.storyIds.storyIds)
-            .pipe(
-              concatMap((storyId) => this.feedStoriesService.getStoryDetails(storyId)),
-              toArray()
-            );
+          this.storiesData = storiesData;
 
-          const storiesData = await firstValueFrom($storyDetailsObservables);
+          if (storiesData != null) {
+            this.stories = storiesData.stories;
+          }
 
           this.isStoriesLoading = false;
 
           this.page = new Page(
             this.page.size,
-            this.storyIds.totalElements,
-            this.storyIds.totalElements / this.page.size,
+            this.storiesData.totalElements,
+            this.storiesData.totalElements / this.page.size,
             pageInfo.offset
           );
 
-          this.stories = storiesData;
           this.filterStories();
-
         },
         (error) => {
           this.isStoriesLoading = false;
