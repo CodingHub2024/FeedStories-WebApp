@@ -1,11 +1,16 @@
-Required Node.js version v20.14.0
+ Required
+
+1) Node.js version v20.14.0
 
 
-Required  Angular CLI: 13.3.11
+2) Angular CLI: 13.3.11
 
 
-C:\Dev\FeedStories-WebApp>npm install
+Commands to Run
 
+Directory :- \FeedStories-WebApp
 
-C:\Dev\FeedStories-WebApp>ng serve
+1) npm install
+
+2) ng serve
 
