@@ -35,8 +35,6 @@ describe("FeedStoriesComponent", () => {
   });
 
   it("should set component stories", fakeAsync(() => {
-    debugger;
-
     const mockStoryDetails: StoryDetails[] = [
       { storyId: 1, title: "Story 1", url: "url1" },
       { storyId: 2, title: "Story 2", url: "url2" },

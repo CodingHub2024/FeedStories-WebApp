@@ -2,8 +2,6 @@ import { Component } from "@angular/core";
 import { FeedStoriesService } from "../service/feed-stories-service";
 import { Page } from "../model/page";
 import { ColumnMode } from '@swimlane/ngx-datatable';
-import { concatMap, switchMap, toArray } from "rxjs/operators";
-import { firstValueFrom, from, lastValueFrom } from "rxjs";
 import { StoryDetails, Stories } from "../model/story";
 import { environment } from "../../../environments/environment";
 
@@ -29,7 +27,6 @@ export class FeedStoriesComponent {
   }
 
   async loadStories(pageInfo) {
-    debugger;
     this.page.pageNumber = pageInfo.offset;
     this.isStoriesLoading = true;
 
