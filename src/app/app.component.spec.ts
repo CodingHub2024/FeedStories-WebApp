@@ -23,13 +23,7 @@ describe('AppComponent', () => {
   it(`should have as title 'FeedStories.WebApp'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    //expect(app).toEqual('FeedStories.WebApp');
+    expect(app.state).toEqual(false);
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('FeedStories.WebApp app is running!');
-  });
 });

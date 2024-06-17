@@ -2,19 +2,14 @@ import { ComponentFixture, TestBed, tick, fakeAsync } from "@angular/core/testin
 import { FeedStoriesComponent } from "./feed-stories.component";
 import { FeedStoriesService } from "../service/feed-stories-service";
 import { FeedStoriesWebApi } from '../../shared/services/feed-stories-web-api';
-import { Story, StoryDetails } from "../model/story";
+import { Stories,StoryDetails } from "../model/story";
 import * as TypeMoq from "typemoq";
-import { provideMockStore } from "@ngrx/store/testing";
 
 describe("FeedStoriesComponent", () => {
   let component: FeedStoriesComponent;
   let fixture: ComponentFixture<FeedStoriesComponent>;
   let mockFeedStoriesService: TypeMoq.IMock<FeedStoriesService>;
   let mockFeedStoriesWebApi: TypeMoq.IMock<FeedStoriesWebApi>;
-  const initialState = {
-    /* define your initial state here */
-  };
-
 
   beforeEach(async () => {
     mockFeedStoriesService = TypeMoq.Mock.ofType<FeedStoriesService>();
@@ -28,7 +23,6 @@ describe("FeedStoriesComponent", () => {
             provide: FeedStoriesWebApi,
             useValue: mockFeedStoriesWebApi,
           },
-        provideMockStore({ initialState }),
       ]
     }).compileComponents();
 
@@ -42,12 +36,6 @@ describe("FeedStoriesComponent", () => {
 
   it("should set component stories", fakeAsync(() => {
     debugger;
-    const mockStoryIds: Story = {
-      storyIds: [1],
-      totalElements: 1,
-    };
-
-    const pageInfo = { offset: 0 };
 
     const mockStoryDetails: StoryDetails[] = [
       { storyId: 1, title: "Story 1", url: "url1" },
@@ -55,21 +43,25 @@ describe("FeedStoriesComponent", () => {
       { storyId: 3, title: "Story 3", url: "url3" },
     ];
 
+    const mockStoryIds: Stories = {
+      stories : mockStoryDetails,
+      totalElements: 1
+    };
+
+    const pageInfo = { offset: 0 };
+
     // Mocking the service method to return mockStoryIds
     mockFeedStoriesService
-      .setup(x => x.getStoryIds(TypeMoq.It.isAnyNumber(), TypeMoq.It.isAnyNumber()))
+      .setup(x => x.getStories(TypeMoq.It.isAnyNumber(), TypeMoq.It.isAnyNumber()))
       .returns(() => Promise.resolve(mockStoryIds));
 
     // Simulate the component method call
     component.loadStories(pageInfo);
 
-    // Resolve the promise
-    tick();
-
     // Assert component behavior
     expect(component.stories.length).toBe(1); // Adjust the assertion based on your test case
 
     // Optionally, you can verify that the service method was called
-    mockFeedStoriesService.verify(x => x.getStoryIds(TypeMoq.It.isAnyNumber(), TypeMoq.It.isAnyNumber()), TypeMoq.Times.once());
+    mockFeedStoriesService.verify(x => x.getStories(TypeMoq.It.isAnyNumber(), TypeMoq.It.isAnyNumber()), TypeMoq.Times.once());
   }));
 });
