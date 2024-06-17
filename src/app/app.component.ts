@@ -19,10 +19,4 @@ import { LocationStrategy, HashLocationStrategy, Location } from '@angular/commo
     }
   ]
 })
-export class AppComponent {
-  state: any;
-
-  constructor(location: Location) {
-    this.state = false;
-  }
-}
+export class AppComponent {}

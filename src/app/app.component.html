@@ -1,13 +1,13 @@
-<div [class.dark]="state === 'dark'">
+<div>
   <nav>
     <h3>Live Data Application</h3>
     <ul class="main-ul">
       <li>
-        <h4><a [routerLink]="['/']" (click)="state = false">Live Data Web App</a></h4>
+        <h4><a [routerLink]="['/']" >Live Data Web App</a></h4>
 
         <ul>
           <li>
-            <a [routerLink]="['/server-paging']" (click)="state = 'server-paging'">Feed Stories</a>
+            <a [routerLink]="['/feedStories']" >Feed Stories</a>
           </li>
         </ul>
       </li>

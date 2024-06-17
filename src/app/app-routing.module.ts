@@ -4,7 +4,7 @@ import { ErrorPageComponent } from "./core/error-handling/error-page-component";
 import { FeedStoriesComponent } from "./feed-stories/component/feed-stories.component";
 
 const routes: Routes = [
-  { path: "server-paging", component: FeedStoriesComponent },
+  { path: "feedStories", component: FeedStoriesComponent },
   { path: "error", component: ErrorPageComponent },
   { path: "**", redirectTo: "/", pathMatch: "full" },
 ];
