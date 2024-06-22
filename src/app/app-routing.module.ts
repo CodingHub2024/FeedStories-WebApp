@@ -6,7 +6,7 @@ import { FeedStoriesComponent } from "./feed-stories/component/feed-stories.comp
 const routes: Routes = [
   { path: "feedStories", component: FeedStoriesComponent },
   { path: "error", component: ErrorPageComponent },
-  { path: "**", redirectTo: "/", pathMatch: "full" },
+  { path: "**", redirectTo: "/feedStories", pathMatch: "full" },
 ];
 
 @NgModule({
